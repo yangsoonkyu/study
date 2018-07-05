@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p id= "demo"></p>
+    <script>
+    
+    function factorial(num)  {
+            /*
+        if (num<=1) {
+            return 1;
+        } else {
+
+            return num*factorial(num-1);
+        }
+        */
+       //3항 연산자는 조건?참:거짓;
+        function factorial(n){
+            return !(n>1)?1:factorial(n-1)*n;
+           // return !(n>1)?1:arguments.callee(n-1)*n;
+            // argument.callee는 나를 부른 함수를 말한다. 
+        }
+
+    }
+    factorial(3)
+    </script>
+</body>
+</html>

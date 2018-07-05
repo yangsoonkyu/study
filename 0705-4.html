@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>HTML 이벤트</h1>
+    <p>onchange 예제</p>
+
+    <form action="" method="POST">
+        <select id="mySelect" onchange="myFunction()">
+            <option value="Audi">아우디</option>
+            <option value="BMW">비엠더블유</option>
+            <option value="Mercedes">벤츠</option>
+            <option value="Volvo">볼보</option>
+        </select>
+        <button type="submit">저장</button>
+    </form>
+    
+    
+    <script>
+        function myFunction() {
+            var x = document.getElementById("mySelect").value;
+            alert(x);
+
+        }
+    </script>
+
+</body>
+
+</html>

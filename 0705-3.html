@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 역역1 - 상단 -->
+    <div>
+    window 객체에 alert창을 띄우는 함수를 만들어봅시다
+</div>
+<div>
+
+    <!-- 영역2 - 본문내용 -->
+
+    <p id="message">이곳에 메세지도 함게 출력합시다.</p>
+    <div>
+        <button type="button" onclick="myFunc('첫번째 버튼 클릭됨')">첫번째 버튼</button>
+        <br><button type="button" onclick="myFunc('두번째 버튼 클릭됨')">두번째 버튼</button>
+    </div>
+    
+    <script>
+
+    //자바스크립트 주석은 '//'이렇게 사용합니다.
+    function myFunc(para) {
+        // 여기가 코드 블럭으로 myFunc()를 호출하면 실행되는 코드가 모여있습니다.
+        /*  << 한줄 이상의 주석
+        윈도우 객체의 알림창을 띄워봅시다. 
+        window.alert('메세지')
+        */
+        window.alert(para);
+        document.getElementById('message').innerHTML=para;
+
+
+    }
+    </script>
+</div>
+</body>
+</html>

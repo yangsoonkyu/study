@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <form action="" method="POST" name="color">
+        <select id="mySelect" onchange="myFunction(value)">
+                <option value="red">빨강</option>
+                <option value="yellow">노랑</option>
+                <option value="green">초록</option>
+        </select>
+            <button type="submit">전송</button>
+    </form>
+
+
+
+
+    <script>
+    function myFunction(para){
+        var x = document.getElementsByTagName("body")[0];
+        x.style.backgroundColor = para;
+    } 
+    </script>
+
+
+</body>
+</html>
