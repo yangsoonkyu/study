@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+<p id="demo"></p>
+
+<script>
+
+/* var resRandom = arr.sort(function(a,b){
+  return 0.5-Math.random();}); */
+
+// console.log(resRandom);
+
+var myC = [1,2,3,4,5,6,7,8,9,10]
+var res = myC.sort(function(a,b){
+  return 0.5-Math.random();});
+//  console.log(myC.pop())
+//  console.log(myC)
+
+
+
+for (var i=myC.pop(); i<myC.length; i=myC) {
+  console.log(i);
+  myC.sort(function(a,b){
+    return 0.5-Math.random();});
+  }
+
+  
+
+
+</script>
+</body>
+</html>
