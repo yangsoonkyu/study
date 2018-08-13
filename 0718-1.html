@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>JS Bin</title>
+</head>
+
+<body>
+    <div>
+        <form action="" name="numb">
+            <input type="text" name="num1">+
+            <input type="text" name="num2">=
+            <span id="result">값</span>
+
+        </form>
+    </div>
+    <div>
+        <button id="Btn">결과보기</button>
+
+    </div>
+
+
+
+    <script>
+
+        var x = document.getElementById("Btn");
+        x.addEventListener("click", myFn);
+        var res = document.getElementById("result")
+        // var aa= document.numb.num1.value;
+
+
+
+        function myFn() {
+            var a = document.forms["numb"]["num1"].value;
+            var b = document.forms["numb"]["num2"].value;
+            res.innerHTML = Number(a) + Number(b)
+            //alert(Number(a) + Number(b))
+
+        }
+
+
+
+    
+
+    </script>
+</body>
+
+</html>

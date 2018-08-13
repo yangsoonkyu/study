@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <input type="text" name="res" id="id_res" value="" maxlength=15 style="WIDTH: 130pt; HEIGHT: 30pt">
+    </div>
+    <div id="main" name="cal">
+        <form action="" name="myForm" id="id_myForm">
+            <input type="button" name="remove" value="<-" style="WIDTH: 30pt; HEIGHT: 30pt">
+            <input type="button" name="reset" value="C" style="WIDTH: 30pt; HEIGHT: 30pt">
+            <input type="button" name="set1" value="(" style="WIDTH: 30pt; HEIGHT: 30pt">
+            <input type="button" name="set2" value=")" style="WIDTH: 30pt; HEIGHT: 30pt">
+            <br>
+            <p id="number"></p>
+            <input type="button" name="sum" value="+" style="WIDTH: 30pt; HEIGHT: 30pt">
+            <input type="button" name="sub" value="-" style="WIDTH: 30pt; HEIGHT: 30pt">
+            <input type="button" name="mul" value="*" style="WIDTH: 30pt; HEIGHT: 30pt">
+            <button id="Btn" style="WIDTH: 98pt; HEIGHT: 30pt">=</button>
+            <input type="button" name="div" value="/" style="WIDTH: 30pt; HEIGHT: 30pt">
+        </form>
+
+    </div>
+    <div>
+
+    </div>
+
+    <script>
+        var main, numb, result, number, i, val;
+        main = document.getElementById("main");
+        result = document.getElementById("id_res");
+        number = document.getElementById("number");
+        main.addEventListener("click", myFn);
+
+
+
+        
+
+        var txt="";
+        for (i = 1; i < 10; i++) {
+            txt += "<input type='button' value=" + i + ">"
+            number.innerHTML = txt;
+        }
+
+        
+        function myFn(i) {
+            numb= i.value
+            result.value += numb;
+        }
+
+    </script>
+</body>
+
+</html>

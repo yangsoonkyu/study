@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+            <input type="text" name="res" id="id_res" value="" maxlength=15 style="WIDTH: 130pt; HEIGHT: 30pt">
+            <input type="text" name="res2" id="id_res2" value="" maxlength=15 style="WIDTH: 130pt; HEIGHT: 30pt">
+    </div>
+    <div id="main" name="cal">
+        <form action="" name="myForm" id="id_myForm">
+            <input type="button" name="remove" value="<-" onclick="myback()" style="WIDTH: 30pt; HEIGHT: 30pt">
+            <input type="button" name="reset" value="C" onclick="cle()" style="WIDTH: 30pt; HEIGHT: 30pt">
+            <input type="button" name="set1" value="(" onclick="myFn('(')" style="WIDTH: 30pt; HEIGHT: 30pt">
+            <input type="button" name="set2" value=")" onclick="myFn(')')" style="WIDTH: 30pt; HEIGHT: 30pt">
+            <br>
+            <input type="button" name=7 value=7 onclick="myFn(7)" style="WIDTH: 30pt; HEIGHT: 30pt">
+            <input type="button" name=8 value=8 onclick="myFn(8)" style="WIDTH: 30pt; HEIGHT: 30pt">
+            <input type="button" name=9 value=9 onclick="myFn(9)" style="WIDTH: 30pt; HEIGHT: 30pt">
+            <input type="button" name="sum" value="+" onclick="myFn('+')" style="WIDTH: 30pt; HEIGHT: 30pt">
+            <br>
+            <input type="button" name=4 value=4 onclick="myFn(4)" style="WIDTH: 30pt; HEIGHT: 30pt">
+            <input type="button" name=5 value=5 onclick="myFn(5)" style="WIDTH: 30pt; HEIGHT: 30pt">
+            <input type="button" name=6 value=6 onclick="myFn(6)" style="WIDTH: 30pt; HEIGHT: 30pt">
+            <input type="button" name="sub" value="-" onclick="myFn('-')" style="WIDTH: 30pt; HEIGHT: 30pt">
+            <br>
+            <input type="button" name=aa value=1 style="WIDTH: 30pt; HEIGHT: 30pt">
+            <input type="button" name=aa value=2 style="WIDTH: 30pt; HEIGHT: 30pt">
+            <input type="button" name=3 value=3 onclick="myFn(3)" style="WIDTH: 30pt; HEIGHT: 30pt">
+            <input type="button" name="mul" value="*" onclick="myFn('*')" style="WIDTH: 30pt; HEIGHT: 30pt">
+            <br>
+            <input type="button" name=0 value=0 onclick="myFn(0)" style="WIDTH: 30pt; HEIGHT: 30pt">
+            <button id="Btn" onclick="answer()" style="WIDTH: 70pt; HEIGHT: 30pt">=</button>
+            <input type="button" name="div" value="/" onclick="myFn('/')" style="WIDTH: 30pt; HEIGHT: 30pt">
+        </form>
+
+    </div>
+    <div>
+
+    </div>
+
+    <script>
+        var main, numb, result, result2, i, ran;
+        
+        main = document.getElementById("main");
+        main.addEventListener("click", function(){myFn(i)});
+        result = document.getElementById("id_res");
+        
+        
+        
+        //result2 = document.getElementById("id_res2");
+
+        // function mySet() { 
+        //     function myFn() {
+        //         result.value += num;
+        //     }
+        // }        
+        
+        function myFn(i) {
+            for (i= 1; i<10; i++) {
+                if(i == myForm[i].value) {
+                    alert(i)
+                 }
+            }
+        }
+       
+        numb=[]
+        function answer() {
+            result.value = eval(result.value);
+               
+        }
+
+        function cle() {
+            result.value = "";
+        }
+
+        function myback() {
+            result.value
+        }
+
+    </script>
+</body>
+
+</html>

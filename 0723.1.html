@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var num, str, res, l, len;
+        num = 1234567;
+        str = num.toString();
+        //var a = (str.length)%3;
+        len = str.length;
+        l = num % 3;
+        res = "";
+
+        res += str.substr(0, l);
+
+        while (l < Len) {
+            if (res !== "") res += ",";
+            res += str.substr(l, 3);
+            l += 3
+
+        }
+    </script>
+</body>
+
+</html>

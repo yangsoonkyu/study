@@ -1,0 +1,13 @@
+span,
+p {
+            border: 1px solid blue;
+            padding: 3px;
+            font-size: 3em;
+        }
+
+        .disable-select {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }

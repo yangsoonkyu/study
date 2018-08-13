@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+     span { border: 1px solid blue;
+            padding: 3px; 
+            font-size: 3em;
+        }
+    .disable-select {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    </style>
+</head>
+
+<body> 
+
+    <p id="screen1"></p>
+    <p id="screen2"></p>
+    <div id="calc_body">
+        <span class="btn">7</span>
+        <span class="btn">8</span>
+        <span class="btn">9</span>
+        <span class="btn">/</span> <br>
+        <span class="btn">4</span>
+        <span class="btn">5</span>
+        <span class="btn">6</span>
+        <span class="btn">*</span> <br>
+        <span class="btn">3</span>
+        <span class="btn">2</span>
+        <span class="btn">1</span>
+        <span class="btn">-</span> <br>
+        <span class="btn">0</span>
+        <span class="btn">=</span>
+        <span class="btn">+</span>
+
+    </div>
+
+
+
+    <script>
+        
+        // 계산기 이름 basicCalc
+        // 텍스트 선택 차단 [버튼],[수식, 계산결과]
+        // todo 커서는 손(선택)
+        function initCalc() { 
+            // 처음에 한번만 실행되는 초기화 함수
+            console.log("계산기를 준비합니다.")
+            calcBase.body.addEventListener("click", function(e) {return getInput(e);})
+            //calcBase.body.addEventListener("click", getInput)
+            // calcBase.body.addEventListener("click", stopEvent);
+            var btns = document.querySelectorAll(".btn");
+            for (var i = 0; i < btns.length; i++){ 
+                console.log(btns[i].innerText)//
+                btns[i].classList.add("disable-select")//선택 드래그 방지
+            }
+        }
+
+        window.onload = function() {
+            initCalc();
+        }
+
+        // 자료  데이터 ( 입력한 데이터수식을 보관)
+        // 입력에서 전달받은 키값을 보관한다.
+        // 객체 생성후 배열에 담아서 관리 
+        var calcBase = {
+            data: [],
+            calcSign:"+_*/",
+            //data: ['(', 1, '+', 2000, ')', '*', 4998],
+            strData: function () {
+                // 데이타가 숫자일때 콤마를 넣어준다.
+                for(var j=0; j<this.data.length; j++){
+                    if (this.data[j].length > 4 ) {
+                        addComma(this.data[j])
+                    }
+                    
+
+                }
+                
+                return this.data.join("");
+
+
+            },
+            body: document.getElementById("calc_body")
+        }
+
+
+
+
+        // 입력 
+        // 키값 입력을 가져온다.
+        // (조건) 최초 입력시 기호의 경우 +,-,*, / 는 무시한다.
+        // (조건) 연산자가 연속으로 입력될경우 마지막 기호를 사용한다.\
+        // 15자리까지 입력이 넘는 경우 무시
+        // 음수는 괄호를 사용한다.
+        // 기호중에 괄호는 연속입력이 가능하다 
+        // 가져온 키는 데이터에 전달한다.
+        // 수정시 연산식으로 변경이 가능하며 배열에 담아 관리
+        // todo 버튼을 클릭하면 화면에 보여주기
+
+        function getInput(e) {
+            var calBtn, dataArr, getChar;
+            calBtn = e.target;
+            getChar = calBtn.innerText;
+            dataArr = calcBase.data
+            dataArrLen = dataArr.length;
+
+            // 버튼이 아니면 이하종료  
+            // 텍스트 선택 차단
+            // if (calBtn.className !== "btn") return;
+            // className에 disable-select가 추가되면서 종료되었다 아래처럼 수정
+            // if (calBtn.className !== "btn disable-select") return
+            if (calBtn.className.indexOf("btn") === -1 ) return;
+            
+            //조건1 최초 입력시 기호의 경우 *이거나 /는 무시한다. 
+            // if ((!dataArr.length) && (getChar === "*") ) return;
+            // if (!dataArr.length && getChar === "/" ) return; 
+            // if (!dataArr.length && getChar === "+" ) return; 
+            // if (!dataArr.length && getChar === "-" ) return; 
+            if (!dataArr.length && isCalcSign()) return;
+            
+            
+            
+            //조건2 - 연산기호가 연속으로 입력되면 마지막 기호를 사용한다.
+            //배열의 마지막 입력값을 가져와서 현재 입력값이 모두 기호이면 치환한다. 
+            
+            if (isCalcSign(dataArr[dataArrLen-1]) && isCalcSign(getChar)) { 
+                //치환
+                dataArr[dataArrLen-1] = getChar;
+            } else if (getChar === "=") {
+                showScreen(); 
+
+            } else { 
+                dataArr.push(getChar);
+            }
+            
+            
+            /* var y = calcSign.indexOf(getChar)
+            // dataArr의 마지막 요소가 기호이고 입력된 값이 기호일때
+            if ((dataArr.slice(-1) == "+" ) && (y > 0)) { 
+                dataArr.pop();
+             
+
+
+            }
+            다시 정리하기 
+            */
+            // dataArr.push(getChar)
+            
+            
+            //e.stopPropagation();
+            //stopPropagtion() 은 버블링과 캡쳐링에서 현재 발생한 이벤트 이후의 전파를 막습니다.
+            // 이벤트 타겟이 body이면 stopPropagation()
+         
+        }
+        
+
+        function isCalcSign(param) {
+            // 매개변수가 기호이면 참 아니면 거짓 반환 - 3항 연산자 
+            return (calcBase.calcSign.indexOf(param)> -1 )? true:false;
+            return;
+        }
+        // function stopEvent(e) {
+        //     e.stopPropagation();
+        // }
+
+
+
+
+
+
+        // 출력 (화면에 데이터를 보여주는 기능)
+        // 자료의 값을 천단위로 화면에 출력 
+        // 연산으로부터 전달받은 계산결과를 15자 이내로 출력
+        // todo 입력값에 선택이 가능하도록 수정[마지막 작업]
+        // todo 입력값에 천단위 기호 추가
+        function showScreen() {
+            showGetStr();
+            // 계산을 위임
+            var n = evalStr();
+            showResult(n);
+
+        }
+
+        // todo 입력 값에 천단위 기호 추가 
+        function showGetStr() {
+            console.log("입력된 수식을 표현");
+            var cStr = calcBase.strData();
+            document.getElementById("screen1").innerHTML = cStr;
+
+        }
+
+        function showResult(param) {
+            console.log("결과를 보여준다." + param);
+            var commaStr = addComma(param);
+            document.getElementById("screen2").innerHTML = commaStr;
+
+        }
+
+        function addComma(num) {
+            // 숫자가 와야한다.
+            if (isNaN(num)) return false;
+
+            var str, len, l, res;
+            str = num.toString();
+            len = str.length;
+            l = len % 3;
+            res = "";
+            res += str.substr(0, l);
+
+            while (l < len) {
+                if (res !== "") res += ",";
+                res += str.substr(l, 3);
+                l += 3
+
+            }
+            return res;
+        }
+
+
+
+        // 연산
+        // 자료에 보관된 수식을 가져와 계산 
+        // eval()을 사용
+        // 결과는 출력에 전달
+        function evalStr() {
+            console.log("계산결과를 보여준다.");
+            var cStr = calcBase.strData();
+            return eval(cStr);
+        }
+
+
+
+
+    </script>
+
+
+
+</body>
+
+</html>

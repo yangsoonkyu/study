@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+            span,
+            p {
+                border: 1px solid blue;
+                padding: 3px;
+                font-size: 3em;
+            }
+    
+            
+        </style>
+</head>
+<body>
+    <p id ="screen" ></p>
+    <p id ="screen2" ></p>
+    <span class="btn">C</span>
+    <span class="btn">BS</span><br>
+    <span class="btn">7</span>
+    <span class="btn">8</span>
+    <span class="btn">9</span>
+    <span class="btn">+</span><br>
+    <span class="btn">4</span>
+    <span class="btn">5</span>
+    <span class="btn">6</span>
+    <span class="btn">-</span><br>
+    <span class="btn">1</span>
+    <span class="btn">2</span>
+    <span class="btn">3</span>
+    <span class="btn">*</span><br>
+    <span class="btn">0</span>
+    <span class="btn">=</span>
+    <span class="btn">/</span>
+    <span class="test">#</span>
+
+    <script>
+    // 계산기 이름 basicCalc
+    // todo 텍스트 선택 차단 (버튼, 수식, 계산결과에 드래그 차단)
+    var basicCalc = document.querySelectorAll(".btn")
+    document.body.addEventListener("click", input)
+
+
+    // 자료
+    // 입력에서 전달받은 키값을 전달
+    // 객체 생성후 배열에 담아서 관리
+    var calcbase = { 
+        data : [],
+        calcSign : "+-*/",
+        
+    };
+
+
+
+
+
+    // 입력 
+    // 키값을 가져온다
+    // 가져온 키값은 데이터에 전달한다
+    // 조건1 -  최초 입력시 기호의 경우 "+, - , * , /" 는 무시한다
+    // 조건2 - 숫자에 0으로 시작 방지
+    // 조건3 - 연산 기호가 연속적으로 입력되면 마지막 기호 사용
+    // 조건4 -  15자리가 넘는 경우 입력무시 - 한번에 11자리까지 입력 가능
+    // 음수는 괄호를 사용한다.
+    // todo 수정시 연산식으로 변경이 가능하며 배열에 담아 관리
+    // todo 버튼을 클릭하면 화면에 보여주기
+    // 연속되는 숫자 입력은 자릴수에 추가한다. ex) 2, 3, 4 => 234
+
+    function input(e) {
+        var cClick = e.target
+        var cData = cClick.innerText;
+        var sign = calcbase.calcSign;
+        var cDataLen = calcbase.data.length;
+        var cLast = calcbase.data[cDataLen-1]
+
+        if (cClick.className.indexOf("btn") === -1) return;
+        // 버튼 이외의 곳을 클릭하면 무시 
+        
+        // 조건1 최초입력시 기호의 경우 무시한다.
+        if ( calcbase.data.length === 0 && sign.indexOf(cData) > -1 ) return;
+        
+
+        // 조건3 연산 기호가 연속적으로 입력되면 마지막 기호 사용 
+        if (sign.indexOf(cLast) > -1 && sign.indexOf(cData) >-1 ) {
+            calcbase.data.pop();
+            calcbase.data.push(cData);
+            showGetrStr();
+            
+            //calcbase.data[cDataLen-1]= cData; 
+        } else if (Number.isInteger(Number(cLast)) && Number.isInteger(Number(cData)) ) {
+            // 마직막에 data의 값이 숫자이고 입력한 값이 숫자이면
+            // 값을 붙여준다.
+            var item = calcbase.data.pop();
+            var num = Number(item + cData).toString()
+            if (cLast.length < 12 ) { 
+                calcbase.data.push(num);
+
+            }
+            showGetrStr();
+
+        } else if (cData === "="){
+            showResult(); 
+
+        } else if (cData === "C") {
+            removeAll(); 
+            showScreen();
+
+        } else if (cData === "BS") {
+            var cDataLast = calcbase.data.pop();
+            if(isSign(cDataLast)){
+                showScreen();
+
+                
+
+            } else { 
+                var strArr = cDataLast.split("");
+                if(strArr.length > 1){ 
+                    strArr.pop();
+                    var addStr = strArr.join("");
+                    calcbase.data.push(addStr); 
+                    showScreen();
+
+                } else { 
+                    strArr.pop();
+                    showScreen();
+                }
+                
+
+
+            }
+
+
+            
+
+        } else {
+            calcbase.data.push(cData);
+            showGetrStr();
+
+        }
+        
+    }
+
+    function addComma(para) {
+        // 숫자에 천단위마다 ,를 넣어준다. 
+        if (isNaN(para)) return false;
+        var str = para.toString();
+        var strLen = str.length;
+        var L = strLen % 3;
+        result = ""
+        result += str.substr(0,L);
+        while(L < strLen){ 
+            if(result !== "") result += ",";
+            result += str.substr(L,3);
+            L += 3;
+        }
+        return result;
+
+    } 
+    
+    function isSign(para) { 
+        return (calcbase.calcSign.indexOf(para) > -1 ) ? true: false ;
+    }
+
+
+
+
+
+    function removeAll() { 
+        calcbase.data = [];
+    }
+
+
+    function showScreen() { 
+        showGetrStr();
+        showResult();
+    }
+
+
+    function showGetrStr() { 
+        var cData = calcbase.data;
+        var cDataLen= cData.length;
+        var cStr = "";
+        for (var i = 0; i<cDataLen; i++){
+            if(isSign(cData[i])){
+                cStr += cData[i];
+                continue
+            }else { 
+                cStr += addComma(cData[i])
+            }
+        
+        }
+        document.getElementById("screen").innerHTML = cStr;
+        
+    }
+    
+    function showResult() { 
+        var cRes = eval(calcbase.data.join(""))
+        var sign = ""
+        if (cRes === undefined){ 
+            cRes = ""
+        } else if (Math.abs(cRes).toString().indexOf(".")>-1){
+            cArr = cRes.toString().split(".")
+            cRes = addComma(cArr[0]) + "." + cArr[1]
+            if(cRes < 0 ) sign += "-"
+            
+        }
+        
+        document.getElementById("screen2").innerHTML = sign + cRes;
+    }
+
+
+
+
+
+    // 출력 
+    // 자료의 값을 천단위로 화면에 출력
+    // 연산으로 부터 전달받은 결과를 15자 이내로 출력
+    // 입력값에 천단위 기호 추가 
+
+
+    // 연산
+    // 자료에 보관된 수식을 가져와 계산
+    // eval()을 사용
+    // 결과는 출력에 전달한다.
+
+    
+    </script>
+
+    
+    
+</body>
+</html>
